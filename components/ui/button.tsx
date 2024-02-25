@@ -19,7 +19,9 @@ const buttonVariants = cva(
         ghost: "hover:bg-white/10 hover:text-white border-2 border-white/20",
         link: "text-primary underline-offset-4 hover:underline",
         selectButton:"border-2 border-primary text-black",
-        ghost2: "hover:bg-white/10 hover:text-white"
+        ghost2: "hover:bg-white/10 hover:text-white",
+        board: " hover:bg-primary/20 hover:text-primary/80 ",
+        boardActive: "bg-blue-500/20 text-blue-800",
       },
       size: {
         default: "h-10 px-4 py-2",
