@@ -1,5 +1,6 @@
-import { createClient } from "@liveblocks/client";
+import { createClient, LiveList, LiveMap, LiveObject } from "@liveblocks/client";
 import { createRoomContext, createLiveblocksContext } from "@liveblocks/react";
+import { layer } from "./types/canvas";
   
 const client = createClient({
   authEndpoint: "/api/liveblocks-auth",
@@ -51,6 +52,7 @@ const client = createClient({
 // `user.presence` property. Must be JSON-serializable.
 type Presence = {
   cursor: { x: number, y: number } | null,
+  selection: string[]
   // ...
 };
 
@@ -61,6 +63,8 @@ type Presence = {
 type Storage = {
   // author: LiveObject<{ firstName: string, lastName: string }>,
   // ...
+  layers: LiveMap<string, LiveObject<layer>>
+  layerIds: LiveList<string>
 };
 
 // Optionally, UserMeta represents static/readonly metadata on each user, as
