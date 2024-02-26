@@ -23,6 +23,7 @@ import { CursorsPresence } from "./cursors-presence";
 import { pointerEventToCanvasPoint } from "@/lib/utils";
 import { nanoid } from "nanoid";
 import { LiveObject } from "@liveblocks/client";
+import { LayerPreview } from "./layer-preview";
 
 const MAX_LAYERS = 100;
 interface CanvasProps {
@@ -76,7 +77,9 @@ export const Canvas = ({ boardId }: CanvasProps) => {
 
       setMyPresence({ selection: [layerId] }, { addToHistory: true });
       setCanvasState({ mode: CanvasMode.None });
-    },[lastUsedColor]);
+    },
+    [lastUsedColor]
+  );
 
   const onWheel = useCallback((e: React.WheelEvent) => {
     setCamera((camera) => ({
@@ -102,6 +105,20 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     });
   }, []);
 
+  const onPointerUp = useMutation(
+    ({}, e) => {
+      const point = pointerEventToCanvasPoint(e, camera);
+      if (canvasState.mode === CanvasMode.Inserting) {
+        insertLayer(canvasState.layerType, point);
+      } else {
+        setCanvasState({ mode: CanvasMode.None });
+      }
+
+      history.resume();
+    },
+    [canvasState, camera, insertLayer, history]
+  );
+
   return (
     <main className="h-full w-full relative touch-none bg-neutral-100">
       <Info boardId={boardId} />
@@ -119,12 +136,21 @@ export const Canvas = ({ boardId }: CanvasProps) => {
         onWheel={onWheel}
         onPointerMove={onPointerMove}
         onPointerLeave={onPointerLeave}
+        onPointerUp={onPointerUp}
       >
         <g
           style={{
             transform: `translate(${camera.x}px, ${camera.y}px)`,
           }}
         >
+          {layerIds.map((layerId) => (
+            <LayerPreview
+              key={layerId}
+              id={layerId}
+              onLayerPointerDown={() => {}}
+              selectionColor="#000"
+            />
+          ))}
           <CursorsPresence />
         </g>
       </svg>
