@@ -22,6 +22,7 @@ const buttonVariants = cva(
         ghost2: "hover:bg-white/10 hover:text-white",
         board: " hover:bg-primary/20 hover:text-primary/80 ",
         boardActive: "bg-primary/20 text-primary/80",
+        iconTools: "hover:bg-primary/20 hover:text-primary/80 text-black"
       },
       size: {
         default: "h-10 px-4 py-2",
