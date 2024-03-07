@@ -5,7 +5,7 @@ import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import qs from "query-string";
 import { useEffect, useState } from "react";
-import { useDebounce } from "usehooks-ts";
+import { useDebounce } from "@/hooks/use-debounce";
 
 export const SearchInput = () => {
   const router = useRouter();
