@@ -1,6 +1,7 @@
 import { createClient, LiveList, LiveMap, LiveObject } from "@liveblocks/client";
 import { createRoomContext, createLiveblocksContext } from "@liveblocks/react";
-import { layer } from "./types/canvas";
+import { Color, Layer } from "./types/canvas";
+
   
 const client = createClient({
   authEndpoint: "/api/liveblocks-auth",
@@ -52,7 +53,9 @@ const client = createClient({
 // `user.presence` property. Must be JSON-serializable.
 type Presence = {
   cursor: { x: number, y: number } | null,
-  selection: string[]
+  selection: string[],
+  pencilDraft: [x: number, y: number, presence: number][] | null,
+  penColor: Color | null
   // ...
 };
 
@@ -63,7 +66,7 @@ type Presence = {
 type Storage = {
   // author: LiveObject<{ firstName: string, lastName: string }>,
   // ...
-  layers: LiveMap<string, LiveObject<layer>>
+  layers: LiveMap<string, LiveObject<Layer>>
   layerIds: LiveList<string>
 };
 

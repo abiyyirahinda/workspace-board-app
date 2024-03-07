@@ -4,7 +4,7 @@ import { RoomProvider } from "@/liveblocks.config";
 import { ReactNode } from "react";
 import { ClientSideSuspense } from "@liveblocks/react";
 import { LiveList, LiveMap, LiveObject } from "@liveblocks/client";
-import { layer } from "@/types/canvas";
+import { Layer } from "@/types/canvas";
 
 
 interface RoomProps{
@@ -23,9 +23,11 @@ export const Room = ({
     initialPresence={{
       cursor: null,
       selection: [],
+      pencilDraft: null,
+      penColor: null,
     }}
     initialStorage={{
-      layers: new LiveMap<string, LiveObject<layer>>(),
+      layers: new LiveMap<string, LiveObject<Layer>>(),
       layerIds: new LiveList()
     }}
     >
